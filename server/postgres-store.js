@@ -59,8 +59,10 @@ async function save(client, state, replace) {
 export async function createPostgresStore({ pool, connectionString = process.env.DATABASE_URL } = {}) {
   if (!pool) {
     if (!connectionString) throw new Error('Configure the Supabase DATABASE_URL.');
-    const url = new URL(connectionString);
-    if (!['postgres:', 'postgresql:'].includes(url.protocol)) throw new Error('DATABASE_URL must be a PostgreSQL connection string.');
+    const url = URL.parse(connectionString);
+    if (!url || !['postgres:', 'postgresql:'].includes(url.protocol) || !url.hostname) {
+      throw Object.assign(new Error('DATABASE_URL must be a PostgreSQL connection string.'), { code: 'DATABASE_URL_INVALID' });
+    }
     for (const key of ['ssl', 'sslmode', 'sslcert', 'sslkey', 'sslrootcert']) url.searchParams.delete(key);
     const ca = process.env.POSTGRES_CA_CERT?.replaceAll('\\n', '\n');
     pool = new Pool({

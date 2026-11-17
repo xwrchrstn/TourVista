@@ -3,20 +3,24 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import { join } from 'node:path';
 
+function configurationError(code, message) {
+  return Object.assign(new Error(message), { code });
+}
+
 export function createMailer({ demo = true, directory, env = process.env, transportFactory = nodemailer.createTransport } = {}) {
   const mode = env.MAIL_MODE || (env.SMTP_HOST ? 'smtp' : demo ? 'preview' : 'unavailable');
-  if (!['preview', 'smtp', 'unavailable'].includes(mode)) throw new Error('MAIL_MODE must be smtp or unavailable (preview is reserved for development fixtures).');
+  if (!['preview', 'smtp', 'unavailable'].includes(mode)) throw configurationError('MAIL_MODE_INVALID', 'MAIL_MODE must be smtp or unavailable (preview is reserved for development fixtures).');
   const url = new URL(env.APP_URL || 'http://127.0.0.1:5173');
   const local = ['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname);
   if (url.username || url.password || url.search || url.hash || url.pathname !== '/' || !['https:', 'http:'].includes(url.protocol) || (url.protocol !== 'https:' && !local)) throw new Error('APP_URL must be the trusted HTTPS website origin, or local HTTP for development.');
   if (mode === 'preview' && !local) throw new Error('Preview emails are allowed only for local development. Configure SMTP for online use.');
   if (mode === 'preview' && !directory) throw new Error('A private preview folder is required.');
   const from = env.MAIL_FROM || (mode === 'preview' ? 'TourVista <no-reply@tourvista.test>' : '');
-  if (mode !== 'unavailable' && (!from || /[\r\n]/.test(from))) throw new Error('Configure a valid MAIL_FROM sender.');
+  if (mode !== 'unavailable' && (!from || /[\r\n]/.test(from))) throw configurationError('MAIL_FROM_INVALID', 'Configure a valid MAIL_FROM sender.');
   let transport;
   if (mode === 'smtp') {
     const port = Number(env.SMTP_PORT || 587);
-    if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASS || !Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Configure SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS and MAIL_FROM.');
+    if (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASS || !Number.isInteger(port) || port < 1 || port > 65535) throw configurationError('SMTP_SETTINGS_INVALID', 'Configure SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS and MAIL_FROM.');
     transport = transportFactory({ host: env.SMTP_HOST, port, secure: port === 465, requireTLS: true,
       auth: { user: env.SMTP_USER, pass: env.SMTP_PASS }, connectionTimeout: 15000, greetingTimeout: 10000, socketTimeout: 15000,
       disableFileAccess: true, disableUrlAccess: true });
