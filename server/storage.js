@@ -25,7 +25,7 @@ export const tables = {
   emailVerifications: { id: 'INT PRIMARY KEY', userId: 'INT', email: text(160), tokenHash: text(64), expires: 'DOUBLE', resolved: 'BOOLEAN', createdAt: text(40) },
   rankings: { id: 'INT PRIMARY KEY', userId: 'INT', createdAt: text(40), details: 'JSON' }
 };
-const foreignKeys = {
+export const foreignKeys = {
   emailVerifications: ['userId', 'users'], campsites: ['ownerId', 'users'], units: ['campId', 'campsites'], reservations: ['unitId', 'units'],
   closures: ['unitId', 'units'], reviews: ['reservationId', 'reservations'], itineraries: ['userId', 'users'],
   campsitePhotos: ['campId', 'campsites'], ownershipSubmissions: ['campId', 'campsites'], checkins: ['reservationId', 'reservations'], forecasts: ['campId', 'campsites']
@@ -76,7 +76,7 @@ export function audit(state, actorId, action, recordId = null) {
   state.audit.push({ id: nextId(state, 'audit'), actorId, action, recordId, createdAt: new Date().toISOString() });
 }
 
-function emptyState() {
+export function emptyState() {
   const state = Object.fromEntries(Object.keys(tables).map((name) => [name, []]));
   state.config = { ...defaultWeatherConfig };
   return state;
@@ -153,7 +153,8 @@ async function seedState() {
 
 export async function createStore(options = {}) {
   const mode = options.mode ?? (options.demo === true ? 'demo'
-    : options.demo === false || process.env.DEMO_MODE === 'false' ? 'mysql' : 'local');
+    : process.env.DATABASE_URL ? 'postgres' : options.demo === false || process.env.DEMO_MODE === 'false' ? 'mysql' : 'local');
+  if (mode === 'postgres') return (await import('./postgres-store.js')).createPostgresStore(options);
   const directory = join(dirname(fileURLToPath(import.meta.url)), 'storage');
   if (mode !== 'mysql') {
     const path = options.path || join(directory, mode === 'demo' ? 'demo.json' : 'capstone.json');

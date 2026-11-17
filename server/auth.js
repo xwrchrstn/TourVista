@@ -1,4 +1,4 @@
-import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
+import { createHash, randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
 import { promisify } from 'node:util';
 const scrypt = promisify(scryptCallback);
 const parameters = { N: 32768, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
@@ -19,27 +19,40 @@ export async function verifyPassword(password, stored) {
 export const publicUser = (user) => user ? ({ id: user.id, name: user.name, email: user.email,
   role: user.role, active: Boolean(user.active), verified: Boolean(user.verified), emailVerified: Boolean(user.emailVerified), emailVerificationRequired: Boolean(user.emailVerificationRequired) }) : null;
 
-export function createSessions({ secureCookies = false } = {}) {
+export function createSessions({ secureCookies = false, sessionStore } = {}) {
   const sessions = new Map();
+  const store = sessionStore || {
+    get: (key) => sessions.get(key),
+    set: (key, entry) => sessions.set(key, entry),
+    delete: (key) => sessions.delete(key),
+    revokeUser(userId) { for (const [key, entry] of sessions) if (entry.userId === userId) sessions.delete(key); },
+    prune() { for (const [key, entry] of sessions) if (entry.expires <= Date.now()) sessions.delete(key); },
+  };
+  const digest = (token) => createHash('sha256').update(token).digest('hex');
   const age = 8 * 60 * 60 * 1000;
-  function issue(res, userId = null) {
+  async function issue(res, userId = null) {
     const token = randomBytes(32).toString('hex');
     const entry = { userId, csrf: randomBytes(24).toString('hex'), expires: Date.now() + age };
-    sessions.set(token, entry);
+    await store.set(digest(token), entry);
     res.cookie('tourvista_session', token, { httpOnly: true, sameSite: 'strict', secure: secureCookies, maxAge: age, path: '/' });
     return { token, ...entry };
   }
   return {
-    middleware(req, res, next) {
-      const token = (req.headers.cookie || '').split(';').map((item) => item.trim())
+    async middleware(req, res, next) {
+      const cookie = (req.headers.cookie || '').split(';').map((item) => item.trim())
         .find((item) => item.startsWith('tourvista_session='))?.slice('tourvista_session='.length);
-      const entry = token && sessions.get(token);
+      const token = /^[a-f0-9]{64}$/.test(cookie || '') ? cookie : null;
+      const key = token && digest(token);
+      const entry = key && await store.get(key);
       if (entry && entry.expires > Date.now()) req.session = { token, ...entry };
-      else { if (token) sessions.delete(token); req.session = issue(res); }
+      else { if (entry) await store.delete(key); req.session = await issue(res); }
       next();
     },
-    rotate(req, res, userId = null) { sessions.delete(req.session.token); req.session = issue(res, userId); },
-    revokeUser(userId) { for (const [token, entry] of sessions) if (entry.userId === userId) sessions.delete(token); },
-    prune() { for (const [token, entry] of sessions) if (entry.expires <= Date.now()) sessions.delete(token); }
+    async rotate(req, res, userId = null) {
+      await store.delete(digest(req.session.token));
+      req.session = await issue(res, userId);
+    },
+    revokeUser: (userId) => store.revokeUser(userId),
+    prune: () => store.prune(),
   };
 }

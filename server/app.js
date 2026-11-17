@@ -99,9 +99,9 @@ export async function createApp(store, {
   drivingRouter = getDrivingRoute,
   drivingItinerary = getDrivingItinerary,
   secureCookies = false,
-  mailer
+  mailer, extendLifetime, httpBackupLimit
 } = {}) {
-  const app = express(), sessions = createSessions({ secureCookies }), attempts = new Map();
+  const app = express(), sessions = createSessions({ secureCookies, sessionStore: store.sessionStore }), attempts = new Map();
   const demo = store.mode === 'demo';
   const mailEnv = !demo && process.env.MAIL_MODE === 'preview' ? { ...process.env, MAIL_MODE: 'unavailable' } : process.env;
   mailer ||= createMailer({ demo, env: mailEnv, directory: store.mailPreviewDirectory || join(dirname(fileURLToPath(import.meta.url)), 'storage', 'mail-preview') });
@@ -112,12 +112,12 @@ export async function createApp(store, {
         audit(state, message.userId, message.type + ' email delivery failed', message.recordId);
       }
     });
-  });
+  }, extendLifetime);
   const notifications = createNotifications(mailer, mailQueue);
   const dummyHash = await hashPassword(randomBytes(32).toString('hex'));
   await reconcileExistingSuspensions(store);
   app.disable('x-powered-by');
-  app.use('/api/admin/restore', express.json({ limit: '32mb' }));
+  app.use('/api/admin/restore', express.json({ limit: httpBackupLimit || '32mb' }));
   app.use(express.json({ limit: '4mb' }));
   app.use('/api', sessions.middleware);
   app.use('/api', async (req, _res, next) => {
@@ -152,7 +152,7 @@ export async function createApp(store, {
     requireThat(valid && user?.active, 'Email or password is incorrect, or this account is inactive.', 401);
     const current = (await store.read()).users.find((row) => row.id === user.id && row.active);
     requireThat(current?.passwordHash === user.passwordHash, 'Your account changed. Please sign in again.', 401);
-    sessions.rotate(req, res, user.id);
+    await sessions.rotate(req, res, user.id);
     res.json({ user: publicUser(user), csrf: req.session.csrf });
   });
   app.post('/api/auth/register', async (req, res) => {
@@ -169,9 +169,9 @@ export async function createApp(store, {
       state.users.push(created); audit(state, created.id, 'Registered account', created.id); return publicUser(created);
     });
     await accounts.issueVerification(user.id);
-    sessions.rotate(req, res, user.id); res.status(201).json({ user, csrf: req.session.csrf, mailMode: mailer.mode });
+    await sessions.rotate(req, res, user.id); res.status(201).json({ user, csrf: req.session.csrf, mailMode: mailer.mode });
   });
-  app.post('/api/auth/logout', (req, res) => { sessions.rotate(req, res); res.json({ csrf: req.session.csrf }); });
+  app.post('/api/auth/logout', async (req, res) => { await sessions.rotate(req, res); res.json({ csrf: req.session.csrf }); });
   app.get('/api/campsites', (req, res) => {
     let origin;
     if (req.query.originLatitude !== undefined || req.query.originLongitude !== undefined) {
@@ -495,7 +495,7 @@ export async function createApp(store, {
       requireThat(target.role !== 'owner' || role === 'owner' || !state.campsites.some((camp) => camp.ownerId === target.id), 'Transfer owned listings before changing this owner role.');
       revoke = role !== target.role || active !== target.active;
       Object.assign(target, { role, active, verified }); audit(state, admin.id, 'Updated account role or access', target.id); return publicUser(target);
-    }); if (revoke && Number(req.params.id) !== req.session.userId) sessions.revokeUser(Number(req.params.id)); res.json(result);
+    }); if (revoke && Number(req.params.id) !== req.session.userId) await sessions.revokeUser(Number(req.params.id)); res.json(result);
   });
   app.patch('/api/admin/reviews/:id', async (req, res) => {
     await store.mutate((state) => { const user = actor(state, req, ['admin']), review = record(state, 'reviews', req.params.id);
@@ -524,25 +524,36 @@ export async function createApp(store, {
   app.get('/api/admin/backup', async (req, res) => {
     const user = actor(req.state, req, ['admin']);
     await store.mutate((state) => audit(state, user.id, 'Exported private system backup'));
+    const backup = { version: 2, exportedAt: new Date().toISOString(), state: await store.read() };
+    if (httpBackupLimit) {
+      const body = JSON.stringify(backup);
+      requireThat(Buffer.byteLength(body) < httpBackupLimit, 'This backup is too large for browser download. Use npm run backup:create from the project.', 413);
+      res.setHeader('Content-Disposition', 'attachment; filename="tourvista-backup.json"');
+      return res.type('json').send(body);
+    }
     res.setHeader('Content-Disposition', 'attachment; filename="tourvista-backup.json"');
-    res.json({ version: 2, exportedAt: new Date().toISOString(), state: await store.read() });
+    res.json(backup);
   });
   app.post('/api/admin/restore', async (req, res) => {
     actor(req.state, req, ['admin']); const restored = validateBackup(req.body);
     requireThat(store.mode === 'demo' || !hasSampleRecords(restored), 'Use a capstone backup without sample records.');
-    await store.mutate(async (state) => {
+    const priorUsers = await store.mutate(async (state) => {
       const admin = actor(state, req, ['admin']);
-      const folder = join(dirname(fileURLToPath(import.meta.url)), 'storage', 'recovery');
-      await mkdir(folder, { recursive: true });
-      await writeFile(join(folder, `before-restore-${Date.now()}.json`), JSON.stringify({ version: 2, exportedAt: new Date().toISOString(), state }));
+      if (store.mode !== 'postgres') {
+        const folder = join(dirname(fileURLToPath(import.meta.url)), 'storage', 'recovery');
+        await mkdir(folder, { recursive: true });
+        await writeFile(join(folder, `before-restore-${Date.now()}.json`), JSON.stringify({ version: 2, exportedAt: new Date().toISOString(), state }));
+      }
       const priorUsers = state.users.map((user) => user.id);
       Object.keys(state).forEach((key) => { delete state[key]; }); Object.assign(state, restored);
       for (const request of [...state.resetRequests, ...state.emailVerifications]) request.resolved = true;
       reconcileSuspendedCampsites(state);
       const restoredAdmin = state.users.find((user) => user.email === admin.email && user.role === 'admin' && user.active);
-      audit(state, restoredAdmin?.id || null, 'Restored system backup'); priorUsers.forEach((id) => sessions.revokeUser(id));
-    }, { replace: true });
-    sessions.rotate(req, res); res.json({ ok: true, csrf: req.session.csrf });
+      audit(state, restoredAdmin?.id || null, 'Restored system backup');
+      return priorUsers;
+    }, { replace: true, preserveBefore: store.mode === 'postgres' });
+    await Promise.all(priorUsers.map((id) => sessions.revokeUser(id)));
+    await sessions.rotate(req, res); res.json({ ok: true, csrf: req.session.csrf });
   });
   app.use('/api', (_req, res) => res.status(404).json({ error: 'API endpoint not found.' }));
   app.use((error, _req, res, _next) => {

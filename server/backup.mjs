@@ -16,7 +16,8 @@ try {
   store = await createStore();
   const { path, bytes } = await writeVerifiedBackup(await store.read(), directory);
   console.log(`Saved a validated ${store.mode} backup to ${path} (${bytes} bytes).`);
-  if (bytes > 32 * 1024 * 1024) {
+  const browserLimit = store.mode === 'postgres' ? 4 * 1024 * 1024 : 32 * 1024 * 1024;
+  if (bytes >= browserLimit) {
     console.log('This file exceeds the browser restore limit. Use your database recovery procedure for large pilot backups.');
   }
 } catch (error) {

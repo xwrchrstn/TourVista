@@ -80,7 +80,7 @@ export function installAccountSecurity(app, store, sessions, mailer, { actor, re
       for (const item of state.resetRequests) if (item.userId === current.id) item.resolved = true;
       audit(state, current.id, 'Reset password', current.id); return current;
     });
-    sessions.revokeUser(user.id); sessions.rotate(req, res);
+    await sessions.revokeUser(user.id); await sessions.rotate(req, res);
     queue(user, 'Your TourVista password changed', 'Your TourVista password was reset. All previous sessions were signed out. If you did not make this change, contact the TourVista administrator immediately.');
     res.json({ message: 'Password updated. Sign in with your new password.', csrf: req.session.csrf });
   });
@@ -98,7 +98,7 @@ export function installAccountSecurity(app, store, sessions, mailer, { actor, re
       for (const row of state.resetRequests) if (row.userId === current.id) row.resolved = true;
       audit(state, current.id, 'Changed own password', current.id); return current;
     });
-    sessions.revokeUser(changed.id); sessions.rotate(req, res);
+    await sessions.revokeUser(changed.id); await sessions.rotate(req, res);
     queue(changed, 'Your TourVista password changed', 'Your TourVista password was changed from Account settings. All previous sessions were signed out. If you did not make this change, contact the TourVista administrator immediately.');
     res.json({ message: 'Password changed. Sign in again with your new password.', csrf: req.session.csrf });
   });

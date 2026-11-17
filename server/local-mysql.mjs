@@ -80,7 +80,7 @@ export async function startLocalMysql(env, extraOptions = []) {
 
 export async function ensureLocalMysql(env = undefined) {
   env ??= await readBackendEnv();
-  if (!env.DB_LOCAL_RUNTIME || env.DEMO_MODE !== 'false') return null;
+  if (env.DATABASE_URL || !env.DB_LOCAL_RUNTIME || env.DEMO_MODE !== 'false') return null;
   try { await verifyLocalMysql(env); return null; }
   catch (error) { if (error.code !== 'ECONNREFUSED') throw error; }
   return startLocalMysql(env);

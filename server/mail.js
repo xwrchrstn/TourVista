@@ -38,7 +38,7 @@ export function createMailer({ demo = true, directory, env = process.env, transp
   };
 }
 
-export function createMailQueue(mailer, onFailure) {
+export function createMailQueue(mailer, onFailure, extendLifetime) {
   const pending = new Set();
   return {
     push(message) {
@@ -50,6 +50,7 @@ export function createMailQueue(mailer, onFailure) {
         .catch(() => {})
         .finally(() => pending.delete(task));
       pending.add(task);
+      extendLifetime?.(task);
     },
     async waitForEmails() { await Promise.allSettled([...pending]); },
   };

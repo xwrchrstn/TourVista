@@ -8,15 +8,17 @@ import { audit, createStore, isSampleEmail, nextId } from './storage.js';
 import { ensureLocalMysql } from './local-mysql.mjs';
 
 const envFile = fileURLToPath(new URL('./.env', import.meta.url));
-const hosted = process.argv.includes('--hosted');
+const postgresOnly = process.argv.includes('--postgres');
+const hosted = postgresOnly || process.argv.includes('--hosted');
 const guard = createServer((connection) => connection.destroy());
 let store, input, localMysql;
 
 try {
   if (!process.stdin.isTTY) throw new Error('Run npm.cmd run admin:setup directly in your VS Code terminal.');
   if (existsSync(envFile)) process.loadEnvFile(envFile);
-  if (hosted && process.env.DEMO_MODE !== 'false') throw new Error('Hosted administrator setup requires the configured MySQL database.');
-  console.log(hosted ? 'TourVista administrator setup for the configured MySQL database.' : 'TourVista administrator setup. Stop TourVista before continuing.');
+  if (postgresOnly && !process.env.DATABASE_URL) throw new Error('Set DATABASE_URL for the Supabase administrator setup.');
+  if (hosted && !process.env.DATABASE_URL && process.env.DEMO_MODE !== 'false') throw new Error('Hosted administrator setup requires the hosted database settings.');
+  console.log(hosted ? 'TourVista administrator setup for the configured hosted database.' : 'TourVista administrator setup. Stop TourVista before continuing.');
   let hidden = false;
   const output = new Writable({ write(chunk, _encoding, done) { if (!hidden) process.stdout.write(chunk); done(); } });
   input = createInterface({ input: process.stdin, output, terminal: true });
