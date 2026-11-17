@@ -1,0 +1,287 @@
+.sign-in-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-block: clamp(12px, 3.3vw, 48px) clamp(28px, 5vw, 72px);
+  color: #172e24;
+}
+
+.sign-in-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: 12px;
+  color: #286049;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.sign-in-back .ui-icon { transform: rotate(180deg); }
+.sign-in-back:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.sign-in-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  grid-template-areas: "landscape form";
+  min-height: 560px;
+  border: 1px solid #dbe4dc;
+  border-radius: 24px;
+  background: #fffefa;
+  box-shadow: 0 18px 55px #17362a12, 0 4px 14px #17362a06;
+}
+
+.sign-in-card > .sign-in-panel {
+  grid-area: form;
+  align-self: center;
+  width: 100%;
+  max-width: none;
+  padding: clamp(26px, 4.6vw, 62px);
+}
+
+.sign-in-panel h1 {
+  margin: 0;
+  color: #133d2e;
+  font-size: clamp(33px, 3.3vw, 46px);
+  font-weight: 670;
+  line-height: 1.1;
+  letter-spacing: -.043em;
+}
+
+.sign-in-intro {
+  max-width: 39ch;
+  margin: 12px 0 27px;
+  color: #4e6458;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sign-in-field { margin-bottom: 17px; }
+.sign-in-field label {
+  display: block;
+  color: #233d31;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.sign-in-field-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+}
+
+.sign-in-field-heading a, .sign-in-register a {
+  display: inline-flex;
+  align-items: center;
+  color: #245d46;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sign-in-field-heading a { min-height: 28px; }
+.sign-in-field-heading a[aria-disabled], .sign-in-register a[aria-disabled] { opacity: .6; cursor: default; }
+
+.sign-in-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  margin-top: 5px;
+  padding-inline: 14px 4px;
+  border: 1px solid #aabdaf;
+  border-radius: 12px;
+  background: #fff;
+  color: #577565;
+}
+
+.sign-in-input:focus-within {
+  border-color: #24644a;
+  box-shadow: 0 0 0 3px #287e562a;
+}
+
+.sign-in-input :is(input, select) {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  margin: 0;
+  padding: 8px 4px 8px 0;
+  border: 0;
+  background: transparent;
+  color: #172e24;
+  font-size: 16px;
+}
+
+.sign-in-input select { margin-right: 9px; }
+.sign-in-input :is(input, select):focus { outline: 0; }
+
+.sign-in-panel .sign-in-visibility {
+  display: grid;
+  flex: 0 0 44px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #3c6551;
+}
+
+.sign-in-panel .sign-in-visibility:hover:not(:disabled) { background: #edf3ee; }
+.sign-in-panel .sign-in-visibility:focus-visible { outline-offset: -3px; }
+
+.sign-in-panel .sign-in-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  margin: 5px 0 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.sign-in-error {
+  margin: 2px 0 12px;
+  padding: 10px 12px;
+  border: 1px solid #efc9c2;
+  border-radius: 9px;
+  background: #fff1ed;
+  color: #882b22;
+  font-size: 14px;
+}
+
+.sign-in-register {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 7px;
+  margin-top: 24px;
+  padding-top: 9px;
+  border-top: 1px solid #e2e9e0;
+  color: #4e6458;
+  font-size: 14px;
+}
+
+.sign-in-register a { min-height: 44px; }
+
+.sign-in-form-note, .sign-in-message {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.sign-in-form-note { color: #4e6458; }
+.sign-in-register + .sign-in-message { margin-top: 16px; }
+.sign-in-token { margin-bottom: 16px; }
+.sign-in-token summary { padding-block: 8px; color: #245d46; cursor: pointer; }
+.account-recipient { color: #133d2e; font-weight: 650; overflow-wrap: anywhere; }
+
+.sign-in-landscape {
+  position: relative;
+  isolation: isolate;
+  grid-area: landscape;
+  display: flex;
+  align-items: end;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 23px 0 0 23px;
+  background: #284134;
+  color: #fff;
+}
+
+.sign-in-landscape img, .sign-in-landscape::after {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-in-landscape img { object-fit: cover; object-position: center; }
+.sign-in-landscape::after {
+  content: "";
+  background: linear-gradient(180deg, transparent 43%, #0b251a65 69%, #091f17ec 100%);
+}
+
+.sign-in-landscape figcaption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  padding: clamp(17px, 3vw, 32px);
+}
+
+.sign-in-landscape figcaption > .ui-icon { align-self: flex-start; margin-top: 2px; color: #e7eec9; }
+.sign-in-landscape figcaption strong { display: block; font-size: 17px; font-weight: 650; }
+.sign-in-landscape figcaption span { display: block; color: #e3ede3; font-size: 13px; }
+.sign-in-landscape figcaption a { margin-left: auto; font-size: 12px; text-underline-offset: 3px; }
+.sign-in-landscape figcaption a:focus-visible { outline-color: #fff; }
+
+.account-security-grid > .account-profile-panel.panel {
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #fffefa;
+}
+
+.account-security-grid > .account-password-panel.panel { min-width: 0; margin: 0; background: #fffefa; }
+.account-profile-details { padding: clamp(20px, 3vw, 30px); }
+.account-profile-panel .sign-in-landscape { min-height: 188px; border-radius: 0; }
+.account-profile-panel .sign-in-landscape img { object-position: center 36%; }
+.account-profile-panel .sign-in-landscape figcaption { padding: 17px; }
+.account-identity { display: flex; align-items: center; gap: 12px; }
+.account-identity .security-icon { flex-shrink: 0; }
+.account-security-grid .account-identity :is(h2, p) { margin: 0; overflow-wrap: anywhere; }
+.account-identity > div { min-width: 0; }
+.account-security-grid .account-email { margin: 14px 0 9px; color: #233d31; font-size: 14px; }
+.account-security-grid .account-password-panel h2 {
+  margin: 0;
+  color: #133d2e;
+  font-size: clamp(24px, 2.7vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -.03em;
+}
+.account-security-grid .sign-in-intro { color: #4e6458; font-size: 14px; line-height: 1.6; }
+.account-security-grid .sign-in-error { color: #882b22; }
+.account-recovery-link { display: inline-block; margin-bottom: 12px; color: #245d46; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+
+.account-verification.notice-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin: 0 0 22px;
+  padding: clamp(16px, 3vw, 25px);
+  border: 1px solid #cddacb;
+  border-radius: 16px;
+}
+.account-verification-copy { flex: 1 1 300px; min-width: 0; }
+.account-verification h2 { margin: 0 0 5px; color: #133d2e; font-size: 21px; }
+.account-verification p { margin: 0; font-size: 14px; line-height: 1.5; }
+.account-verification button { min-height: 44px; font-size: 14px; }
+.account-verification > :is(.success, .sign-in-error, .account-recovery-link) { flex-basis: 100%; }
+
+@media (max-width: 730px) {
+  .sign-in-page { max-width: 530px; }
+  .sign-in-back { margin-bottom: 7px; }
+  .sign-in-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "form" "landscape"; min-height: 0; border-radius: 19px; }
+  .sign-in-card > .sign-in-panel { padding: 27px clamp(18px, 5.3vw, 32px) 18px; }
+  .sign-in-intro { margin-bottom: 19px; }
+  .sign-in-field-heading a { min-height: 38px; }
+  .sign-in-register { margin-top: 19px; padding-top: 3px; }
+  .sign-in-landscape { min-height: 142px; border-radius: 0 0 18px 18px; }
+  .sign-in-landscape img { object-position: center 37%; }
+  .sign-in-landscape::after { background: linear-gradient(180deg, transparent 15%, #091f17f0 100%); }
+  .account-profile-panel .sign-in-landscape { min-height: 128px; }
+}

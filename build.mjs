@@ -1,0 +1,10 @@
+import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = dirname(fileURLToPath(import.meta.url));
+const requireClient = createRequire(join(root, 'client', 'package.json'));
+const vite = join(dirname(requireClient.resolve('vite/package.json')), 'bin', 'vite.js');
+const result = spawnSync(process.execPath, [vite, 'build'], { cwd: join(root, 'client'), stdio: 'inherit' });
+if (result.error) console.error(result.error.message);
+process.exit(result.status ?? 1);

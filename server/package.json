@@ -1,0 +1,19 @@
+{
+  "name": "tourvista-learning-api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "node --test gmail-config.test.js account-security.test.js algorithms.test.js features.test.js roads.test.js app.test.js flow.test.js catalog-route.test.js listing-review.test.js capstone-listings.test.js"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "nodemailer": "10.4.0",
+    "mysql2": "3.24.5"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "tourvista-complete-local-project",
+  "version": "2.0.0",
+  "private": true,
+  "workspaces": ["client", "server"],
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "setup": "node setup.mjs",
+    "email:setup": "node server/gmail-setup.mjs",
+    "email:check": "node server/gmail-setup.mjs --check",
+    "admin:setup": "node server/admin-setup.mjs",
+    "backup:create": "node server/backup.mjs",
+    "pilot:weather": "node server/pilot.mjs weather",
+    "pilot:catalog": "node server/pilot.mjs catalog",
+    "dev": "node dev.mjs",
+    "dev:restart": "node dev.mjs --restart",
+    "build": "node build.mjs",
+    "start": "node server/server.js --hosted",
+    "test": "node --test client/api-client.test.js client/flow.test.js client/marketplace.test.js client/listing-editor.test.js client/account-links.test.js client/decision-display.test.js server/gmail-config.test.js server/account-security.test.js server/algorithms.test.js server/features.test.js server/roads.test.js server/app.test.js server/flow.test.js server/catalog-route.test.js server/listing-review.test.js server/capstone-listings.test.js",
+    "db:setup": "node server/setup-db.mjs"
+  }
+}

@@ -1,0 +1,186 @@
+/* TourVista capstone edition — forest, warm ivory, and a restrained brass accent. */
+:root { background: #f7f8f2; color: #24382d; --pine: #123e2d; --pine-deep: #092b20; --brass: #e5ba75; --paper: #fffef9; }
+.market-header { background: #fffef9ee; backdrop-filter: blur(16px); border-bottom-color: #e5e9df; }
+.market-header .brand-mark { background: #edf0df; padding: 5px; border-radius: 11px; }
+.market-header .brand { color: var(--pine); }
+.app-main { padding-bottom: 70px; }
+.demo-banner { background: #f0eddf; color: #736549; border: 1px solid #e9e4d5; }
+.market-catalog-heading { position: relative; overflow: hidden; min-height: 265px; margin: 24px 0 0; padding: 36px 46px 65px; border-radius: 25px; color: white; background: linear-gradient(90deg,#082d23f5 0%,#0c342be6 43%,#123b2648 100%),url('/images/camp-forest.jpg') center 55% / cover; }
+.market-catalog-heading::after { content: 'Illustrative camping photo'; position: absolute; bottom: 15px; right: 22px; color: #e9f0e1; background: #092b206e; border-radius: 20px; padding: 3px 9px; font-size: 9px; }
+.market-catalog-heading .eyebrow { color: #d4e2c9; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 17px; }
+.market-catalog-heading h1 { color: white; font-size: clamp(34px,4vw,53px); line-height: 1.06; letter-spacing: -1.8px; font-weight: 650; margin: 0 0 15px; }
+.market-catalog-heading h1 em { font-family: Georgia,serif; font-weight: 400; color: #f2d59a; letter-spacing: -1px; }
+.market-catalog-heading p:last-child { color: #d5e2d0; font-size: 14px; }
+.catalog-location { color: #d2e2ca; background: #eef7e30d; padding: 20px; border: 1px solid #ffffff30; border-radius: 15px; backdrop-filter: blur(8px); margin: 0 0 10px 30px; }
+.catalog-location strong { color: #f4dfa9; }
+.market-search { position: relative; z-index: 2; margin-top: -34px; margin-bottom: 20px; box-shadow: 0 8px 30px #11372a16; border: 5px solid #fffef9; background: var(--paper); }
+.market-search-place input,.market-search .search-segment { background: transparent; }
+.market-search .market-search-submit { background: var(--pine); }
+.market-browse-toolbar { border-bottom-color: #dfe5d7; padding: 8px 0 14px; }
+.quick-filters { gap: 18px; }
+.quick-filters button { padding: 12px 13px; border-radius: 12px; border: 1px solid transparent; min-width: 90px; gap: 8px; }
+.quick-filters button.active { background: #e6eddf; border-color: #d2ddc7; color: var(--pine); }
+.quick-filters button:hover { background: #edf1e6; border-color: #dfe5d7; }
+.filter-trigger { background: #fffef9; border-color: #d9e0d1; }
+.market-results-heading h2 { font-size: 25px; color: #173e2c; letter-spacing: -.7px; }
+.market-sort select { background: transparent; }
+.marketplace-card.card { background: var(--paper); padding: 10px; border: 1px solid #e2e7da; border-radius: 21px; box-shadow: 0 5px 14px #16362305; transition: transform .2s,box-shadow .2s; }
+.marketplace-card.card:hover { box-shadow: 0 10px 24px #16362313; transform: translateY(-3px); }
+.market-card-image { border-radius: 14px; }
+.market-card-title { margin: 15px 5px 6px; }
+.marketplace-card p.market-card-location,.marketplace-card p.market-card-amenities { margin-left: 5px; margin-right: 5px; }
+.market-card-price { margin: 11px 5px 0; }
+.market-card-link { margin: 11px 5px 4px; color: var(--pine); font-weight: 650; }
+.market-card-rating { color: #2c4634; }
+.market-catalog-note { background: #edf2e4; border-color: #dae3ce; color: #486345; }
+.owner-workspace-hero { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0,1.8fr) minmax(240px,1fr); gap: 55px; padding: 37px; margin: 27px 0 23px; border-radius: 23px; background: linear-gradient(115deg,#082c22,#184c36); color: #e9f0df; }
+.owner-workspace-hero::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.11; background:repeating-radial-gradient(ellipse at 95% 100%,transparent 0 22px,#e0e6bf 23px 24px,transparent 25px 47px); }
+.owner-workspace-hero > div { position: relative; }
+.owner-workspace-hero .eyebrow { color: #e6ca8a; font-size: 10px; margin: 0 0 15px; }
+.workspace-shell .owner-workspace-hero h1 { color: #fff; font-size: clamp(31px,3.7vw,47px); line-height: 1.09; margin: 0 0 20px; letter-spacing: -1.4px; }
+.owner-workspace-hero h1 em { color: #edcf91; font-family: Georgia,serif; font-weight: 400; }
+.owner-workspace-hero p:not(.eyebrow) { color: #c9dac3; font-size: 13px; line-height: 1.9; max-width: 580px; }
+.owner-workspace-hero button.primary { display: inline-flex; align-items:center; gap:9px; background: var(--brass); color: #153525; border: 0; margin-top: 13px; font-size: 13px; padding: 13px 20px; }
+.owner-workspace-hero button.primary:hover { background: #f0cf94; }
+.owner-hero-stats { padding: 22px; border-radius: 16px; border: 1px solid #ffffff26; background: #f4f8df0b; }
+.owner-hero-stats > span { color: #e1c486; }
+.owner-hero-stats > p { font-size: 8px !important; letter-spacing: 1.5px; margin: 8px 0 13px; }
+.owner-hero-stats > div { display: flex; gap: 13px; align-items: center; padding: 8px 0; border-top: 1px solid #ffffff1a; }
+.owner-hero-stats > div strong { color: #fff; font-size: 28px; font-weight: 600; min-width: 35px; }
+.owner-hero-stats > div span { font-size: 11px; color: #cedbc6; }
+.capstone-host-steps { background: var(--paper); border-color: #dde5d4; }
+.capstone-host-steps li { font-size: 11px; }
+.capstone-host-steps li > span { color: #6e5729; background: #f4ecd6; }
+.owner-listings-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; margin:35px 0 20px; }
+.owner-listings-heading h2 { font-size: 27px; margin: 5px 0 8px; }
+.owner-listings-heading p { margin: 0; font-size:12px; color:#71816b; }
+.owner-listings-heading .eyebrow { color:#7b875d; font-size:9px; }
+.owner-listings-heading > span { background:#e7eddf; border:1px solid #dbe3d0; border-radius:20px; padding:7px 12px; font-size:11px; white-space:nowrap; }
+.capstone-host-listings .host-listing { grid-template-columns: 230px minmax(0,1fr); padding: 13px; gap: 24px; border: 1px solid #dfe5d6; border-radius: 19px; }
+.host-listing-image { position:relative; min-width:0; }
+.capstone-host-listings .host-listing-image .camp-visual,.capstone-host-listings .host-listing-image .landscape { height:100%; min-height:230px; border-radius:12px; }
+.capstone-host-listings .host-listing-image .camp-photo,.capstone-host-listings .host-listing-image svg { height:100%; min-height:230px; object-fit:cover; }
+.host-listing-image > .status { position:absolute; left:10px; top:10px; font-size:9px; box-shadow:0 2px 5px #0001; }
+.capstone-host-listings .host-listing > div:last-child { padding: 10px 12px 10px 0; }
+.capstone-host-listings h3 { font-size:24px; margin:7px 0 10px; }
+.capstone-host-listings .eyebrow { font-size:8px; margin:0; letter-spacing:1px; }
+.host-listing .owner-site-address { display:flex; align-items:flex-start; gap:7px; font-size:12px; color:#6f7c68; line-height:1.7; }
+.owner-site-address .ui-icon { margin-top:3px; }
+.owner-site-metrics { display:flex; align-items:center; flex-wrap:wrap; gap:18px; font-size:11px; color:#64745b; margin:15px 0; }
+.owner-site-metrics strong { font-size:18px; color:#1e442e; }
+.listing-completeness { max-width:340px; margin:15px 0; font-size:10px; color:#687a5a; }
+.listing-completeness > div { height:5px; background:#e7eddf; border-radius:5px; overflow:hidden; margin-top:7px; }
+.listing-completeness i { display:block; height:100%; background:#6e8f52; border-radius:5px; }
+.owner-first-listing { text-align:center; padding:50px; background:#fffef9; }
+.owner-first-listing .ui-icon { color:#5f7c47; }
+.campsite-editor { border:1px solid #d9e1ce; border-radius:20px; background:#fffefb; box-shadow:0 8px 24px #15382409; overflow:clip; margin:25px 0; }
+.editor-topline { display:flex; gap:20px; align-items:center; justify-content:space-between; border-bottom:1px solid #e5e9df; padding:27px 30px; }
+.editor-topline h2 { font-size:27px; margin:5px 0 0; }
+.editor-topline .eyebrow { font-size:9px; margin:0 0 8px; }
+.campsite-editor > .notice-box { margin:18px 24px; }
+.editor-sections { display:flex; flex-wrap:wrap; gap:8px; padding:14px 30px; background:#f4f6ee; border-bottom:1px solid #e3e9d7; }
+.editor-sections > button { display:inline-flex; justify-content:center; align-items:center; gap:7px; min-height:44px; padding:8px 14px; border:1px solid transparent; border-radius:9px; background:transparent; color:#475b46; font-size:13px; font-weight:650; }
+.editor-sections > button[aria-pressed=true] { background:var(--pine); color:#fff; }
+.editor-topline > div > p { margin:8px 0 0; color:#566852; font-size:13px; line-height:1.5; }
+.editor-optional { display:grid; gap:10px; }
+.editor-optional > details { min-width:0; border:1px solid #dce3d1; border-radius:11px; background:white; }
+.editor-optional summary { display:flex; justify-content:space-between; align-items:center; gap:8px; min-height:46px; padding:10px 14px; color:#264c37; font-weight:650; cursor:pointer; list-style:none; }
+.editor-optional summary::-webkit-details-marker { display:none; }
+.editor-optional summary .ui-icon { flex-shrink:0; }
+.editor-optional details[open] > summary .ui-icon { transform:rotate(180deg); }
+.editor-optional-content { min-width:0; padding:16px 14px; border-top:1px solid #e4eadf; }
+.location-editor > .editor-optional { margin-top:14px; }
+@media (max-width:600px) {
+  .editor-sections { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; padding:10px; }
+  .editor-sections > button { padding:6px 4px; gap:4px; line-height:1.25; font-size:12px; }
+  .campsite-editor .editor-form :is(input:not([type=checkbox]), textarea, select) { font-size:16px; }
+  .campsite-editor .editor-footer .button-row { display:grid; grid-template-columns:1fr; }
+  .campsite-editor .editor-footer button { justify-content:center; min-height:44px; }
+}
+.editor-form { min-width:0; padding:30px; }
+.editor-form h3 { font-size:25px; margin:10px 0 12px; line-height:1.25; letter-spacing:-.6px; }
+.editor-form h4 { font-size:15px; margin:24px 0 15px; }
+.editor-form .eyebrow { font-size:9px; margin:0 0 10px; }
+.editor-form .editor-help { font-size:12px; color:#718065; line-height:1.9; margin:0 0 27px; }
+.editor-form .field { font-size:11px; margin-bottom:19px; }
+.editor-form input:not([type=checkbox]),.editor-form textarea,.editor-form select { border-color:#cdd7bf; background:#fff; font-size:12px; padding:12px; }
+.editor-form textarea { line-height:1.8; }
+.editor-inset { background:#f4f6ec; border:1px solid #e1e7d5; padding:19px; border-radius:12px; margin:7px 0 25px; }
+.editor-inset h4 { margin:0 0 17px; }
+.editor-inset p { font-size:11px; line-height:1.8; color:#6b7b5e; }
+.editor-inset .field { margin-bottom:0; }
+.editor-amenities { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.editor-amenities label { display:flex; gap:15px; align-items:center; justify-content:space-between; border:1px solid #dce3d1; border-radius:11px; padding:14px; font-size:12px; font-weight:400; }
+.editor-amenities input[type=checkbox] { margin:0; width:17px; height:17px; }
+.editor-footer { display:flex; gap:20px; align-items:center; justify-content:space-between; border-top:1px solid #e1e7d6; background:#fffefb; padding:22px 0 0; margin-top:30px; }
+.editor-footer > span { font-size:10px; color:#6c7b5f; }
+.editor-footer .button-row { margin:0; }
+.editor-footer button.primary { display:inline-flex; gap:9px; align-items:center; font-size:12px; margin:0; }
+.photo-upload-zone { display:grid; justify-items:center; text-align:center; gap:12px; border:1.5px dashed #9aad83; background:#f5f7ee; border-radius:15px; padding:30px 20px; color:#4c6e3b; margin-bottom:25px; }
+.photo-upload-zone > span { color:#7a866c; font-size:10px; font-weight:400; }
+.photo-upload-zone input { max-width:280px; padding:8px !important; font-size:10px !important; }
+.editor-photo-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.editor-photo-grid article { min-width:0; position:relative; overflow:hidden; border:1px solid #dfe6d3; border-radius:12px; background:#fff; }
+.editor-photo-grid img { display:block; width:100%; height:155px; object-fit:cover; }
+.editor-photo-grid article > div { display:flex; gap:5px; justify-content:space-between; padding:8px; }
+.editor-photo-grid button { font-size:10px; border:0; padding:6px; }
+.cover-photo-badge { position:absolute; left:8px; top:8px; color:#fff; background:#143b2dd9; padding:4px 8px; border-radius:5px; font-size:9px; }
+.photo-url-row { display:flex; gap:13px; align-items:flex-end; margin-top:25px; }
+.photo-url-row .field { flex:1; min-width:0; margin:0; }
+.photo-url-row > button { min-height:42px; font-size:11px; }
+.location-tools { display:flex; align-items:center; justify-content:space-between; gap:20px; margin:5px 0 16px; }
+.location-tools strong,.boundary-tools strong { font-size:13px; }
+.location-tools p,.boundary-tools p { font-size:11px; color:#718365; line-height:1.8; margin:5px 0 0; }
+.location-tools button { display:inline-flex; align-items:center; gap:7px; flex-shrink:0; font-size:11px; color:#305e3e; }
+.owner-location-map { height:350px; border:1px solid #cbd8bf; border-radius:13px; background:#e8eedf; margin:0 0 20px; z-index:0; }
+.owner-location-map.is-drawing { cursor:crosshair; }
+.owner-location-marker { background:transparent; border:0; }
+.owner-location-marker > span { position:absolute; left:1px; top:1px; width:28px; height:28px; background:#174e37; border:3px solid #fff; border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 3px 9px #0004; }
+.owner-location-marker > span::after { content:''; position:absolute; width:8px; height:8px; background:#e9ca81; border-radius:50%; top:7px; left:7px; }
+.location-confirm { display:flex; gap:10px; align-items:flex-start; padding:15px; border:1px solid #dde5d1; background:#f5f7ee; border-radius:10px; font-size:11px; font-weight:400; line-height:1.8; margin:0 0 23px; }
+.location-confirm input { margin:3px 0 0; flex-shrink:0; }
+.boundary-tools { border-top:1px solid #e2e9d7; padding-top:22px; }
+.boundary-tools .button-row { margin:12px 0; }
+.boundary-tools button { font-size:10px; }
+.boundary-tools p.error { color:#9d4d30; }
+.admin-review-hero { background:linear-gradient(120deg,#103b2c,#27583a); border-radius:21px; margin:26px 0 24px; padding:30px !important; }
+.admin-review-hero h1 { color:white; font-size:36px !important; margin:12px 0; }
+.admin-review-hero .eyebrow { color:#e2c47d; font-size:10px; }
+.admin-review-hero p:last-child { color:#d3dfc6; font-size:13px; }
+.review-queue-item { background:#fffef9; border-color:#e1e7d6; }
+.review-queue-item.selected { background:#eaf1e0; border-color:#809b63; }
+.review-detail .camp-gallery { height:260px; border-radius:12px; margin-top:18px; }
+.review-detail .photo-disclosure { font-size:9px; }
+.private-evidence { background:#f2f2e5; border:1px solid #e5e4ce; }
+.arrival-times { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:25px 0; }
+.arrival-times > div { display:flex; gap:12px; align-items:center; border:1px solid #dfe6d5; background:#f6f8ef; border-radius:11px; padding:15px; }
+.arrival-times span { font-size:10px; color:#728467; }.arrival-times strong { display:block; color:#254d31; font-size:15px; margin-top:4px; }
+.campsite-facts section { margin:20px 0; }.campsite-facts p { white-space:pre-line; line-height:1.9; }
+.campsite-contacts { display:flex; gap:9px; flex-wrap:wrap; }.campsite-contacts a { color:#315d3b; padding:9px 12px; border:1px solid #dfe5d1; border-radius:9px; font-size:12px; overflow-wrap:anywhere; }
+.smart-compare-heading { padding:5px 0 18px; }.smart-compare-heading h2 { font-family:Georgia,serif; font-size:28px; color:#295134; font-weight:400; margin:9px 0 12px; }
+.smart-compare-heading .eyebrow { font-size:9px; color:#7e8b60; }.smart-compare-heading p:last-child { font-size:12px; color:#6d7d5f; }
+.market-detail .detail-content > .stay-comparison { padding:24px !important; background:linear-gradient(135deg,#edf3e2,#f8f5e7); border:1px solid #dbe6ca; border-radius:16px; }
+.algorithm-tag { background:#e1ead8; border-color:#d0debf; color:#315b39; }
+.market-detail .detail-content > .panel { background:transparent; }.market-detail .journey-sidebar .panel { background:#fffef9; border-color:#dfe5d5; }
+.site-footer { background:#0b3024; border-top:0; color:#e6ecd9; }.site-footer > div:first-child strong { color:#eed7a3; }.site-footer p,.site-footer button { color:#becfba; }.site-footer a { color:#e5e8d3; }.site-footer button:hover { color:white; }
+.workspace-rail { background:#eef2e7; border-color:#dce4d1; }.workspace-nav button.selected { background:#194a32; }
+@media(max-width:1150px) { .owner-workspace-hero { gap:28px; padding:30px; }.owner-hero-stats { padding:18px; }.capstone-host-listings .host-listing { grid-template-columns:190px minmax(0,1fr); }.editor-form { padding:25px; } }
+@media(max-width:900px) { .market-catalog-heading { padding:30px 30px 62px; min-height:250px; }.market-catalog-heading h1 { font-size:42px; }.owner-workspace-hero { grid-template-columns:1fr; }.owner-hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }.owner-hero-stats > span,.owner-hero-stats > p { display:none; }.owner-hero-stats > div { border:0; display:block; padding:0; }.owner-hero-stats > div strong { display:block; }.owner-hero-stats > div span { font-size:10px; }.editor-form { padding:26px; } }
+@media(max-width:600px) { .market-catalog-heading { padding:27px 23px 58px; min-height:235px; margin-top:17px; border-radius:18px; background-position:center,right center; }.market-catalog-heading h1 { font-size:34px; letter-spacing:-1px; }.market-catalog-heading .eyebrow { font-size:8px; letter-spacing:.7px; margin-bottom:16px; }.market-catalog-heading p:last-child { font-size:12px; max-width:260px; line-height:1.7; }.market-catalog-heading::after { font-size:8px; right:14px; bottom:13px; }.market-search { margin-top:-27px; border-width:4px; max-width:calc(100% - 20px); }.quick-filters { gap:9px; }.quick-filters button { padding:10px; min-width:73px; font-size:9px; }.market-browse-toolbar { gap:12px; padding-bottom:10px; }.market-results-heading h2 { font-size:21px; }.marketplace-card.card { padding:8px; border-radius:18px; }.market-card-title { margin-top:13px; }.owner-workspace-hero { margin-top:20px; padding:28px 24px; border-radius:18px; gap:23px; }.workspace-shell .owner-workspace-hero h1 { font-size:34px; }.owner-workspace-hero .eyebrow { font-size:8px; }.owner-workspace-hero p:not(.eyebrow) { font-size:12px; }.owner-hero-stats { padding:16px; gap:13px; }.owner-hero-stats > div strong { font-size:25px; }.owner-hero-stats > div span { font-size:9px; }.capstone-host-steps { grid-template-columns:1fr 1fr; }.capstone-host-steps li { font-size:9px; line-height:1.6; padding:12px; }.capstone-host-steps li > span { width:23px; height:23px; }.owner-listings-heading h2 { font-size:25px; }.owner-listings-heading p { font-size:11px; }.capstone-host-listings .host-listing { grid-template-columns:1fr; gap:8px; padding:10px; }.capstone-host-listings .host-listing-image .camp-visual,.capstone-host-listings .host-listing-image .landscape,.capstone-host-listings .host-listing-image .camp-photo,.capstone-host-listings .host-listing-image svg { height:210px; min-height:0; }.capstone-host-listings .host-listing > div:last-child { padding:12px; }.capstone-host-listings h3 { font-size:23px; }.host-listing .button-row button { font-size:10px; padding:9px 11px; }.owner-site-metrics { gap:12px; }.editor-topline { padding:22px 20px; align-items:flex-start; gap:12px; }.editor-topline h2 { font-size:23px; line-height:1.3; }.editor-topline .eyebrow { font-size:8px; }.editor-topline > button { font-size:10px; padding:8px; flex-shrink:0; }.editor-form { padding:23px 20px; }.editor-form h3 { font-size:24px; }.editor-form .editor-help { font-size:11px; }.editor-form .two-fields { grid-template-columns:1fr; gap:0; }.editor-form .field { font-size:10px; }.editor-amenities label { padding:12px; font-size:11px; }.editor-inset .field { margin-bottom:14px; }.editor-inset .field:last-child { margin-bottom:0; }.editor-footer { flex-direction:column; align-items:stretch; gap:12px; padding-top:18px; }.editor-footer > span { font-size:10px; }.editor-footer .button-row { justify-content:space-between; gap:8px; }.editor-footer button,.editor-footer button.primary { font-size:11px; padding:11px; }.photo-upload-zone { padding:25px 15px; }.photo-upload-zone > span { font-size:9px; line-height:1.7; }.editor-photo-grid { gap:10px; }.editor-photo-grid img { height:125px; }.editor-photo-grid button { font-size:9px; padding:4px; }.cover-photo-badge { font-size:8px; }.photo-url-row { display:block; }.photo-url-row > button { margin-top:10px; min-height:0; }.location-tools { flex-direction:column; align-items:stretch; gap:12px; }.location-tools button { align-self:flex-start; }.owner-location-map { height:300px; }.location-confirm { font-size:10px; padding:12px; }.boundary-tools .button-row { gap:7px; }.boundary-tools button { font-size:9px; padding:8px; }.admin-review-hero { padding:26px !important; margin-top:22px; }.admin-review-hero h1 { font-size:31px !important; }.admin-review-hero p:last-child { font-size:12px; line-height:1.8; }.review-detail .camp-gallery { height:220px; }.arrival-times { gap:9px; }.arrival-times > div { padding:12px; gap:8px; }.arrival-times strong { font-size:13px; }.campsite-contacts a { font-size:11px; }.smart-compare-heading h2 { font-size:26px; }.market-detail .detail-content > .stay-comparison { padding:20px !important; } }
+
+/* Account security keeps the same TourVista palette. */
+.account-security-grid { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(240px,.85fr); gap:24px; align-items:start; margin-top:25px; }
+.account-security-grid .panel { padding:30px; border-radius:21px; background:var(--paper); border-color:#dde5d5; }
+.account-security-grid h2 { font-size:26px; letter-spacing:-.6px; margin:12px 0; }
+.account-security-grid p { color:#67795e; font-size:13px; line-height:1.8; }
+.account-email { overflow-wrap:anywhere; }
+.security-icon { display:inline-grid; place-items:center; background:#e7eddd; color:#254d35; width:56px; height:56px; border-radius:17px; }
+.email-state { display:inline-block; background:#fff0d5; color:#76531a; padding:6px 11px; border-radius:30px; font-size:11px; }
+.email-state.is-verified { background:#dfeedd; color:#245333; }
+.account-security-grid .notice-box { margin-top:23px; }
+.account-security-grid code,.auth-panel code,.account-created code { overflow-wrap:anywhere; white-space:normal; }
+.text-button { display:block; margin-top:15px; font-size:12px; border:0; padding:4px 0; background:transparent; text-decoration:underline; }
+.auth-panel .checkbox-label { font-size:12px; margin:12px 0 20px; }
+@media(max-width:800px) { .account-security-grid { grid-template-columns:1fr; } .account-security-grid .panel { padding:23px; } }
+.review-refresh { margin: 0 0 12px; }
+.proof-panel, .review-detail { scroll-margin-top: 88px; }

@@ -1,0 +1,157 @@
+/* Tourist browsing and booking. Keep the first screen usable on narrow phones. */
+.claveria-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  min-height: clamp(330px, 39vw, 475px);
+  margin-top: 24px;
+  padding: clamp(32px, 6.8vw, 104px);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #143a2d;
+  color: #fffefa;
+}
+.claveria-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  background:
+    linear-gradient(90deg, #0b251bf5, #0c2b22ba 38%, #0c2b2226 78%),
+    url('/images/claveria-sumagaya.jpg') center 5% / cover no-repeat;
+}
+.claveria-region { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; font-weight: 600; }
+.claveria-hero h1 {
+  margin: 14px 0;
+  color: inherit;
+  font: 500 clamp(50px, 7vw, 105px) / .94 Georgia, serif;
+  letter-spacing: -.058em;
+}
+.claveria-hero-copy > p:last-child { margin: 0; max-width: 310px; font-size: clamp(15px, 1.55vw, 19px); color: #f0f5eb; }
+.claveria-photo-credit {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  padding: 4px 9px;
+  border-radius: 5px;
+  background: #09251be8;
+  color: #fff;
+  font-size: 11px;
+  text-decoration: none;
+}
+.claveria-photo-credit:hover { color: #fff; text-decoration: underline; }
+.catalog-find {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  width: min(850px, calc(100% - 48px));
+  margin: -30px auto 20px;
+  padding: 8px;
+  background: #fffefa;
+  border: 1px solid #dce6d9;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px #142d2220;
+}
+.catalog-query { display: flex; align-items: center; gap: 10px; padding-inline: 12px 4px; color: var(--forest); min-width: 0; }
+.catalog-query .ui-icon { flex: 0 0 auto; }
+.catalog-query input { margin: 0; min-width: 0; min-height: 46px; padding: 8px 4px; border: 0; background: transparent; font-size: 16px; }
+.catalog-find button { min-height: 46px; margin: 0; padding: 8px 18px; border-radius: 11px; font-size: 14px; }
+.catalog-find .filter-trigger { background: #f0f4eb; border-color: #dce5d7; color: var(--forest); }
+.market-catalog .market-browse-toolbar { margin: 0 0 23px; border: 0; }
+.market-catalog .quick-filters { gap: 8px; padding: 3px 2px 10px; }
+.market-catalog .quick-filters button {
+  flex-direction: row;
+  gap: 7px;
+  min-height: 44px;
+  min-width: auto;
+  padding: 7px 13px;
+  border: 1px solid #d7e3d7;
+  border-radius: 50px;
+  background: #fffefa;
+  color: #314f3d;
+  font-size: 13px;
+}
+.market-catalog .quick-filters button.active { background: #dcebd9; border-color: #8ea98b; color: #183d28; }
+.market-catalog .market-results-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; scroll-margin-top: 96px; }
+.market-catalog .market-results-heading p { grid-column: 1; }
+.market-catalog .market-sort { grid-column: 2; grid-row: 1 / 3; }
+.market-results-heading h2 { color: var(--forest); font: 500 clamp(25px, 3vw, 41px) / 1.12 Georgia, serif; letter-spacing: -.025em; }
+.market-sort select { padding: 9px; min-height: 44px; border: 1px solid #dce4d7; font-size: 14px; }
+.catalog-empty { border: 1px dashed #b8cbb7; border-radius: 18px; background: #fffefa; padding: 36px 18px; text-align: center; }
+.catalog-empty > svg { color: var(--forest); }
+.catalog-empty h3 { margin: 8px 0; color: var(--forest); }
+.catalog-empty p { max-width: 42ch; margin: 0 auto 12px; }
+.market-grid .marketplace-card.card { padding: 8px; border: 1px solid #dfe8db; border-radius: 20px; background: #fffefa; }
+.market-grid .market-card-image { aspect-ratio: 1.55; border-radius: 14px; }
+.market-grid .market-card-title h3 { font-size: 17px; overflow-wrap: anywhere; }
+.market-grid .market-card-link { width: calc(100% - 10px); justify-content: space-between; min-height: 44px; padding: 9px 12px; border: 1px solid #dbe8d8; border-radius: 10px; background: #f0f5ee; font-size: 14px; }
+.market-card-image .save-camp-compact { width: 44px; height: 44px; }
+.market-header .visitor-action { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; border: 1px solid #dce6d7; background: #f5f7ef; color: var(--forest); border-radius: 40px; font-size: 14px; padding: 7px 15px; white-space: nowrap; }
+.market-header .account-menu > summary { min-height: 44px; }
+.market-detail .detail-section-nav { gap: 10px; background: #f6f7f1; }
+.market-detail .detail-section-nav button { display: inline-flex; gap: 6px; align-items: center; min-height: 44px; padding: 8px 11px; border-radius: 9px; color: #244936; font-size: 14px; }
+.market-detail .detail-section-nav button:hover { background: #e8f0e4; }
+.stay-panel .stay-title { margin: 0 0 4px; font: 500 clamp(26px, 2.9vw, 35px) / 1.15 Georgia, serif; }
+.stay-panel .stay-price { margin-bottom: 12px; }
+.market-detail .route-card { scroll-margin-top: 150px; }
+.route-card .road-planner { margin-top: 0; }
+.reservation-journey .primary, .market-detail .stay-panel .primary { min-height: 48px; }
+.road-planner .route-map-submit { min-height: 48px; }
+.auth-layout .auth-story {
+  background: linear-gradient(120deg, #0a2d22ed, #103c2d86),
+    url('/images/claveria-sumagaya.jpg') center / cover no-repeat #143a2d;
+}
+.auth-layout .auth-story .mountain-art { display: none; }
+:where(.market-catalog, .market-detail, .reservation-journey, .market-header) :focus-visible { outline: 3px solid #8e602c; outline-offset: 3px; }
+
+@media (max-width: 850px) {
+  .market-detail .journey-sidebar { position: static; }
+  .market-detail .mobile-stay-bar { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .market-detail .mobile-stay-bar button { min-height: 46px; }
+}
+@media (max-width: 600px) {
+  .app-main { padding-inline: 16px; }
+  .market-header { padding: 10px 16px; min-height: 64px; }
+  .market-header .brand { font-size: 23px; }
+  .market-header .host-entry { display: none; }
+  .market-header .account-header { gap: 8px; }
+  .market-header .visitor-action { padding: 7px 12px; }
+  .claveria-hero { min-height: 250px; margin-top: 13px; padding: 25px 19px 42px; border-radius: 20px; }
+  .claveria-hero::before { background-position: center, 58% 22%; }
+  .claveria-region { gap: 5px; font-size: 12px; }
+  .claveria-hero h1 { font-size: clamp(42px, 12vw, 63px); }
+  .claveria-hero-copy > p:last-child { max-width: 27ch; font-size: 14px; }
+  .claveria-photo-credit { bottom: 9px; right: 10px; font-size: 10px; }
+  .catalog-find { width: 100%; margin: 10px auto 13px; gap: 6px; padding: 6px; border-radius: 14px; }
+  .catalog-query { gap: 5px; padding-left: 5px; }
+  .catalog-query .ui-icon { width: 17px; }
+  .catalog-find button { padding: 6px 8px; font-size: 13px; }
+  .catalog-find .filter-trigger { gap: 4px; }
+  .catalog-find .filter-trigger > svg { width: 16px; }
+  .market-catalog .market-browse-toolbar { margin-bottom: 16px; }
+  .market-catalog .market-results-heading { align-items: center; margin-bottom: 15px; }
+  .market-catalog .market-results-heading h2 { grid-column: 1 / -1; }
+  .market-results-heading h2 { font-size: 27px; }
+  .market-catalog .market-sort { grid-row: 2; }
+  .market-catalog .market-sort > span { display: none; }
+  .market-catalog .market-sort select { width: auto; }
+  .market-catalog .market-grid, .market-saved .market-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .market-grid .market-card-image { aspect-ratio: 1.65; }
+  .market-grid .market-card-title h3 { font-size: 18px; }
+  .market-grid .marketplace-card p.market-card-location, .market-grid .marketplace-card p.market-card-amenities { font-size: 13px; }
+  .market-detail .detail-section-nav { top: 63px; }
+  .market-detail .detail-section-nav button { padding-inline: 6px; font-size: 13px; }
+  .market-detail .journey-layout .panel, .reservation-journey .journey-layout .panel { padding: 17px; }
+  .market-detail .stay-panel .field input, .reservation-journey .field :is(input, select), .auth-panel .field input, .filters-modal .field :is(input, select) { font-size: 16px; min-height: 46px; }
+  .market-detail .journey-layout .panel p, .reservation-journey .journey-layout .panel p { font-size: 14px; }
+  .market-detail .stay-panel .stay-price span { font-size: 12px; }
+  .market-detail .mobile-stay-bar { gap: 6px; padding-inline: 12px; }
+  .mobile-stay-bar .stay-route-link { display: inline-flex; align-items: center; gap: 4px; min-height: 46px; padding-inline: 7px; font-size: 12px; white-space: nowrap; }
+  .mobile-stay-bar button.primary { padding-inline: 10px; white-space: nowrap; }
+  .auth-layout .auth-story { display: none; }
+  .auth-layout { margin-top: 18px; }
+  .reservation-journey .booking-content .primary, .road-planner .route-map-submit { width: 100%; justify-content: center; }
+}

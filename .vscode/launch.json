@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "TourVista: Debug in Chrome",
+            "url": "http://127.0.0.1:5173/#/home",
+            "webRoot": "${workspaceFolder}/client"
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "TourVista: Debug in Edge",
+            "url": "http://127.0.0.1:5173/#/home",
+            "webRoot": "${workspaceFolder}/client"
+        }
+    ]
+}
